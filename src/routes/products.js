@@ -3,6 +3,7 @@ const router = express.Router();
 
 const mysqlConnection =  require('../database');
 
+//solicitud general de los productos
 router.get('/', (req, res) => {
     mysqlConnection.query('SELECT * FROM product', (err, rows, fields) => {
         if(!err){
@@ -13,6 +14,7 @@ router.get('/', (req, res) => {
     });
 });
 
+//solicitud por ID del producto
 router.get('/product=:id', (req, res) => {
     const {id} =  req.params;
     mysqlConnection.query('SELECT * FROM product WHERE id = ?', [id], 
@@ -25,6 +27,7 @@ router.get('/product=:id', (req, res) => {
     } );
 });
 
+//solicitud por nombre del producto
 router.get('/name=:id', (req, res) => {
     const {id} =  req.params;
     mysqlConnection.query('SELECT * FROM product WHERE name LIKE ?', '%'+[id]+'%', 
@@ -37,7 +40,7 @@ router.get('/name=:id', (req, res) => {
     } );
 });
 
-
+//Solicitud por categoria del producto
 router.get('/category=:id', (req, res) => {
     const {id} =  req.params;
     mysqlConnection.query('SELECT * FROM product WHERE category = ?', [id], 
@@ -50,6 +53,7 @@ router.get('/category=:id', (req, res) => {
     } );
 });
 
+//Solicitud que se refiere a todas las categorias
 router.get('/allcategory', (req, res) => {
     mysqlConnection.query('SELECT * FROM category ', 
     (err, rows, fields) =>{
