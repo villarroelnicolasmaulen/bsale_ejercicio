@@ -50,5 +50,16 @@ router.get('/category=:id', (req, res) => {
     } );
 });
 
+router.get('/allcategory', (req, res) => {
+    mysqlConnection.query('SELECT * FROM category ', 
+    (err, rows, fields) =>{
+        if(!err){
+            res.json(rows);
+        } else {
+            console.log(err);
+        }
+    } );
+});
+
 
 module.exports = router;
